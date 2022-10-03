@@ -148,6 +148,10 @@
       "activity": {
         "activity": "Activity",
         "message": "Every actions on this document are logged here."
+      },
+      "reviews": {
+        "reviews": "Reviews",
+        "message": ""
       }
     },
     "edit": {

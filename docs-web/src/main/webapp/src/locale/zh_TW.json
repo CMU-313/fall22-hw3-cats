@@ -131,6 +131,10 @@
       "activity": {
         "activity": "活動",
         "message": "對該文檔的任何更改都將記錄於此."
+      }, 
+      "reviews": {
+        "reviews": "評論",
+        "message": ""
       }
     },
     "edit": {
