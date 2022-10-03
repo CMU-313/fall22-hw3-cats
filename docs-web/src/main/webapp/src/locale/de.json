@@ -148,6 +148,10 @@
       "activity": {
         "activity": "Aktivitäten",
         "message": "Alle Aktionen dieses Dokuments werden hier protokolliert."
+      }, 
+      "reviews": {
+        "reviews": "Bewertungen",
+        "message": ""
       }
     },
     "edit": {

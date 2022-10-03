@@ -148,6 +148,10 @@
       "activity": {
         "activity": "Aktywność",
         "message": "Każda akcja na tym dokumencie jest logowana tutaj."
+      }, 
+      "reviews": {
+        "reviews": "Opinie",
+        "message": ""
       }
     },
     "edit": {
