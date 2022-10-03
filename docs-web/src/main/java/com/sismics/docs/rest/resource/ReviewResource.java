@@ -90,4 +90,53 @@ public class ReviewResource extends BaseResource {
                 .add("create_date", review.getCreateDate().getTime());
         return Response.ok().entity(response.build()).build();
     }
+
+    /**
+     * Delete a review.
+     *
+     * @api {delete} /review/:id Delete a review
+     * @apiName DeleteReview
+     * @apiGroup Review
+     * @apiParam {String} id Review ID
+     * @apiSuccess {String} status Status OK
+     * @apiError (client) ForbiddenError Access denied
+     * @apiError (client) NotFound Review or document not found
+     * @apiPermission user
+     * @apiVersion 1.5.0
+     *
+     * @param id review ID
+     * @return Response
+     */
+    @DELETE
+    @Path("{id: [a-z0-9\\-]+}")
+    public Response delete(@PathParam("id") String id) {
+        if (!authenticate()) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Get the review
+        ReviewDao reviewDao = new ReviewDao();
+        Review review = reviewDao.getActiveById(id);
+        if (review == null) {
+            throw new NotFoundException();
+        }
+        
+        // If the current user owns the review, skip ACL check
+        if (!review.getUserId().equals(principal.getId())) {
+            // Get the associated document
+            AclDao aclDao = new AclDao();
+            if (!aclDao.checkPermission(review.getDocumentId(), PermType.WRITE, getTargetIdList(null))) {
+                throw new NotFoundException();
+            }
+        }
+        
+        // Delete the review
+        reviewDao.delete(id, principal.getId());
+        
+        // Always return OK
+        JsonObjectBuilder response = Json.createObjectBuilder()
+                .add("status", "ok");
+        return Response.ok().entity(response.build()).build();
+    }
+    
 }
