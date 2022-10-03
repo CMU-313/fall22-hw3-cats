@@ -29,10 +29,6 @@ public class ReviewResource extends BaseResource {
      * @apiName PutReview
      * @apiGroup Review
      * @apiParam {String} id Document ID
-     * @apiParam {String} academic Academic Score
-     * @apiParam {String} extracurricular Extracurricular Score
-     * @apiParam {String} athletics Athletics Score
-     * @apiParam {String} personal Personal Fit Score
      * @apiSuccess {String} academic Academic
      * @apiSuccess {String} extracurricular Extracurricular
      * @apiSuccess {String} athletics Athletics
@@ -139,4 +135,58 @@ public class ReviewResource extends BaseResource {
         return Response.ok().entity(response.build()).build();
     }
     
+    /**
+     * Get all reviews on a document.
+     *
+     * @api {get} /review/:id Get reviews
+     * @apiName GetReview
+     * @apiGroup Review
+     * @apiParam {String} id Document ID
+     * @apiParam {String} share Share ID
+     * @apiSuccess {Object[]} reviews List of reviews
+     * @apiSuccess {String} reviews.id Review ID
+     * @apiSuccess {String} academic Academic
+     * @apiSuccess {String} extracurricular Extracurricular
+     * @apiSuccess {String} athletics Athletics
+     * @apiSuccess {String} personal Personal
+     * @apiSuccess {String} reviews.creator Username
+     * @apiSuccess {String} reviews.creator_gravatar Creator Gravatar hash
+     * @apiSuccess {Number} reviews.create_date Create date (timestamp)
+     * @apiError (client) NotFound Document not found
+     * @apiPermission none
+     * @apiVersion 1.5.0
+     *
+     * @param documentId DocumentID
+     * @return Response
+     */
+    @GET
+    @Path("{documentId: [a-z0-9\\-]+}")
+    public Response get(@PathParam("documentId") String documentId,
+            @QueryParam("share") String shareId) {
+        authenticate();
+        
+        // Read access on doc gives access to read reviews 
+        AclDao aclDao = new AclDao();
+        if (!aclDao.checkPermission(documentId, PermType.READ, getTargetIdList(shareId))) {
+            throw new NotFoundException();
+        }
+        
+        // Assemble results
+        ReviewDao reviewDao = new ReviewDao();
+        List<ReviewDto> reviewDtoList = reviewDao.getByDocumentId(documentId);
+        JsonArrayBuilder reviews = Json.createArrayBuilder();
+        for (reviewDto reviewDto : reviewDtoList) {
+            reviews.add(Json.createObjectBuilder()
+                    .add("id", reviewDto.getId())
+                    .add("content", reviewDto.getContent())
+                    .add("creator", reviewDto.getCreatorName())
+                    .add("creator_gravatar", ImageUtil.computeGravatar(reviewDto.getCreatorEmail()))
+                    .add("create_date", reviewDto.getCreateTimestamp()));
+        }
+        
+        // Always return OK
+        JsonObjectBuilder response = Json.createObjectBuilder()
+                .add("reviews", reviews);
+        return Response.ok().entity(response.build()).build();
+    }
 }
