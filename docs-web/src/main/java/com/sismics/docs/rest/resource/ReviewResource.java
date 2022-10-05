@@ -43,19 +43,26 @@ public class ReviewResource extends BaseResource {
      * @apiVersion 1.5.0
      * 
      * @param documentId Document ID
-     * @param content Review content
+     * @param academic Review academic score
+     * @param extracurricular Review extracurricular score
+     * @param athletic Review athletic score
+     * @param personal Review personal score
      * @return Response
      */
     @PUT
     public Response add(@FormParam("id") String documentId,
-            @FormParam("content") String content) {
+            @FormParam("academic") String academic, @FormParam("extracurricular") String extracurricular,
+            @FormParam("athletic") String athletic, @FormParam("personal") String personal) {
         if (!authenticate()) {
             throw new ForbiddenClientException();
         }
         
         // Validate input data
         ValidationUtil.validateRequired(documentId, "id");
-        content = ValidationUtil.validateLength(content, "content", 1, 4000, false);
+        academic = ValidationUtil.validateLength(academic, "academic", 1, 3, false);
+        academic = ValidationUtil.validateLength(extracurricular, "extracurricular", 1, 3, false);
+        academic = ValidationUtil.validateLength(athletic, "athletic", 1, 3, false);
+        academic = ValidationUtil.validateLength(personal, "personal", 1, 3, false);
         
         // Read access on doc gives access to write a review 
         AclDao aclDao = new AclDao();
@@ -72,7 +79,7 @@ public class ReviewResource extends BaseResource {
         review.setPersonal(personal);
         review.setUserId(principal.getId());
         ReviewDao reviewDao = new ReviewDao();
-        ReviewDao.create(review, principal.getId());
+        reviewDao.create(review, principal.getId());
         
         // Returns the review
         JsonObjectBuilder response = Json.createObjectBuilder()
@@ -175,10 +182,13 @@ public class ReviewResource extends BaseResource {
         ReviewDao reviewDao = new ReviewDao();
         List<ReviewDto> reviewDtoList = reviewDao.getByDocumentId(documentId);
         JsonArrayBuilder reviews = Json.createArrayBuilder();
-        for (reviewDto reviewDto : reviewDtoList) {
+        for (ReviewDto reviewDto : reviewDtoList) {
             reviews.add(Json.createObjectBuilder()
                     .add("id", reviewDto.getId())
-                    .add("content", reviewDto.getContent())
+                    .add("academic_score", reviewDto.getAcademic())
+                    .add("extracurricular_score", reviewDto.getExtracurricular())
+                    .add("athletic_score", reviewDto.getAthletic())
+                    .add("personal_score", reviewDto.getPersonal())
                     .add("creator", reviewDto.getCreatorName())
                     .add("creator_gravatar", ImageUtil.computeGravatar(reviewDto.getCreatorEmail()))
                     .add("create_date", reviewDto.getCreateTimestamp()));
