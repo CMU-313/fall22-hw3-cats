@@ -1,0 +1,59 @@
+<fieldset>
+    <legend>Add new review</legend>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="inputCreator">{{ 'Creator name' | translate }}</label>
+        <div class="col-sm-10">
+        <input required ng-maxlength="100" class="form-control" type="text" id="inputCreator"
+            name="creator" ng-model="newReview.creator" autocomplete="off" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="inputAcademicScore">{{ 'Academic score' | translate }}</label>
+        <div class="col-sm-10">
+        <input required ng-maxlength="100" class="form-control" type="text" id="inputAcademicScore"
+            name="academic_score" ng-model="newReview.academic_score" autocomplete="off" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="inputExtracurricularScore">{{ 'Extracurricular score' | translate }}</label>
+        <div class="col-sm-10">
+        <input required ng-maxlength="100" class="form-control" type="text" id="inputExtracurricularScore"
+            name="extracurricular_score" ng-model="newReview.extracurricular_score" autocomplete="off" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="inputAthleticScore">{{ 'Athletic score' | translate }}</label>
+        <div class="col-sm-10">
+        <input required ng-maxlength="100" class="form-control" type="text" id="inputAthleticScore"
+            name="athletic_score" ng-model="newReview.athletic_score" autocomplete="off" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="inputPersonalScore">{{ 'Personal score' | translate }}</label>
+        <div class="col-sm-10">
+        <input required ng-maxlength="100" class="form-control" type="text" id="inputPersonalScore"
+            name="personal_score" ng-model="newReview.personal_score" autocomplete="off" />
+        </div>
+    </div>
+
+
+</fieldset>
+
+<table class="table">
+    <tr ng-repeat="review in reviews">
+        {{review}}
+    </tr>
+</table>
+
+<!-- .add("id", reviewDto.getId())
+.add("academic_score", reviewDto.getAcademic())
+.add("extracurricular_score", reviewDto.getExtracurricular())
+.add("athletic_score", reviewDto.getAthletic())
+.add("personal_score", reviewDto.getPersonal())
+.add("creator", reviewDto.getCreatorName())
+.add("creator_gravatar", ImageUtil.computeGravatar(reviewDto.getCreatorEmail()))
+.add("create_date", reviewDto.getCreateTimestamp())); -->
