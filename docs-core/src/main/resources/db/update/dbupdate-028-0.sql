@@ -2,7 +2,6 @@ create cached table DOCUMENT_REVIEWS ( REVIEWER_NAME varchar(40) not null, REVIE
 alter table DOCUMENT_REVIEWS add constraint FK_REVIEWED_DOCUMENT_ID foreign key (REVIEWED_DOCUMENT_ID) references T_DOCUMENT (DOC_ID_C) on delete restrict on update restrict;
 update T_CONFIG set CFG_VALUE_C = '28' where CFG_ID_C = 'DB_VERSION';
 
-insert into DOCUMENT_REVIEWS(REVIEWER_NAME, REVIEWED_DOCUMENT_ID, ACADEMIC_SCORE, EXTRACURRICULR_SCORE, ATHLETIC_SCORE, PERSONAL_FIT_SCORE, DATE_CREATED ) values('Sample Student', '1', '5','5','5','5', '2022-10-04');
 
 
 
