@@ -151,7 +151,7 @@
       },
       "reviews": {
         "reviews": "Reviews",
-        "message": "All completed reviews for this student are displayed here."
+        "message": "Completed reviews for this student are displayed here."
       }
     },
     "edit": {
