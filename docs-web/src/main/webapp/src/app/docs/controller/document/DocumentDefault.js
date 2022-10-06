@@ -9,6 +9,11 @@ angular.module('docs').controller('DocumentDefault', function ($scope, $rootScop
     $scope.logs = data.logs;
   });
 
+  // Load user review info
+  Restangular.one('review').get().then(function (data) {
+    $scope.reviews = data.reviews;
+  });
+
   // Load unlinked files
   $scope.loadFiles = function () {
     Restangular.one('file/list').get().then(function (data) {

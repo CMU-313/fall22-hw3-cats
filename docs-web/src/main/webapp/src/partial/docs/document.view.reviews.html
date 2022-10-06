@@ -2,27 +2,21 @@
 
 <div class="well">
     <h3>{{ 'document.view.reviews.title' | translate }}</h3>
-
     <table class="table table-Reviews">
         <tr>
-          <th style="width: 20%; color: #3a87ad">{{ 'document.view.reviews.category-reviewer' | translate }}</th>
-          <th style="width: 20%">{{ 'document.view.reviews.category-academic' | translate }}</th>
-          <th style="width: 25%">{{ 'document.view.reviews.category-extracurr' | translate }}</th>
-          <th style="width: 20%">{{ 'document.view.reviews.category-athletic' | translate }}</th>
-          <th style="width: 20%">{{ 'document.view.reviews.category-personal' | translate }}</th>
+            <th style="width: 20%">{{ 'document.view.reviews.category-reviewer' | translate }}</th>
+            <th style="width: 20%">{{ 'document.view.reviews.category-academic' | translate }}</th>
+            <th style="width: 25%">{{ 'document.view.reviews.category-extracurr' | translate }}</th>
+            <th style="width: 20%">{{ 'document.view.reviews.category-athletic' | translate }}</th>
+            <th style="width: 20%">{{ 'document.view.reviews.category-personal' | translate }}</th>
         </tr>
-        <tr>
-            <th style="width: 20%; color: #3a87ad">123486</th>
-            <th style="width: 20%">5</th>
-            <th style="width: 25%">6</th>
-            <th style="width: 20%">7</th>
-            <th style="width: 20%">8</th>
+        <tr ng-repeat="review in reviews">
+          <td width="20%" class="va-middle">{{ 'review.id' | translate }}</td>
+          <td width="20%" class="va-middle">{{ 'review.academic_score' | translate }}</td>
+          <td width="25%" class="va-middle">{{ 'review.extracurricular_score' | translate }}</td>
+          <td width="20%" class="va-middle">{{ 'review.athletic_score' | translate }}</td>
+          <td width="20%" class="va-middle">{{ 'review.personal_score' | translate }}</td>
         </tr>
-        <tr>
-            <th style="width: 20%; color: #3a87ad">999999</th>
-            <th style="width: 20%">9</th>
-            <th style="width: 25%">8</th>
-            <th style="width: 20%">1</th>
-            <th style="width: 20%">2</th>
-        </tr>
+        
+      </table>
 </div>
