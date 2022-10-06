@@ -4,11 +4,10 @@
  * Document view reviews controller.
  */
 angular.module('docs').controller('DocumentViewReviews', function($scope, $stateParams, Restangular) {
-  // Load review data from server
-  Restangular.one('review').get({
-    document: $stateParams.id
+  Restangular.one('reviews').get({
+    documentId: $stateParams.id
   }).then(function(data) {
-    $scope.reviews = data.reviews
-  });   
-    
+    console.log(data)
+    $scope.reviews = data.reviews;
+  });
 });
