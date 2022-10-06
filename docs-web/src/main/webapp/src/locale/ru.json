@@ -134,7 +134,13 @@
       }, 
       "reviews": {
         "reviews": "обзоры",
-        "message": ""
+        "message": "Здесь отображаются заполненные отзывы для этого студента.",
+        "title": "Отзывы для этого ученика",
+        "category-reviewer": "Идентификатор рецензента",
+        "category-academic": "Академический",
+        "category-extracurr": "внеклассный",
+        "category-athletic": "Атлетический",
+        "category-personal": "Персональный"
       }
     },
     "edit": {

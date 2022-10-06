@@ -151,7 +151,13 @@
       }, 
       "reviews": {
         "reviews": "Bewertungen",
-        "message": ""
+        "message": "Abgeschlossene Bewertungen für diesen Studenten werden hier angezeigt.",
+        "title": "Bewertungen für diesen Studenten",
+        "category-reviewer": "Prüfer-ID",
+        "category-academic": "Akademisch",
+        "category-extracurr": "Außerhalb des Lehrplans",
+        "category-athletic": "Sportlich",
+        "category-personal": "persönlich"
       }
     },
     "edit": {

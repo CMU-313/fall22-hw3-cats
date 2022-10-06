@@ -151,7 +151,13 @@
       }, 
       "reviews": {
         "reviews": "Opinie",
-        "message": ""
+        "message": "Tutaj wyświetlane są zakończone recenzje tego ucznia.",
+        "title": "Recenzje tego ucznia",
+        "category-reviewer": "Identyfikator recenzenta",
+        "category-academic": "Akademicki",
+        "category-extracurr": "Poza programem szkolnym",
+        "category-athletic": "Atletyczny",
+        "category-personal": "Osobisty"
       }
     },
     "edit": {

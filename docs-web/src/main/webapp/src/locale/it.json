@@ -151,7 +151,13 @@
       }, 
       "reviews": {
         "reviews": "Recensioni",
-        "message": ""
+        "message": "Le recensioni completate per questo studente vengono visualizzate qui.",
+        "title": "Recensioni per questo studente",
+        "category-reviewer": "ID revisore",
+        "category-academic": "Accademico",
+        "category-extracurr": "Extracurriculare",
+        "category-athletic": "Atletico",
+        "category-personal": "Personale"
       }
     },
     "edit": {

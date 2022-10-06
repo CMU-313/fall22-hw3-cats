@@ -3,6 +3,6 @@
 /**
  * Document view reviews controller.
  */
-angular.module('docs').controller('DocumentViewReviews', function($scope) {
+angular.module('docs').controller('DocumentViewReviews', function($scope, $stateParams, Restangular) {
 
 });
