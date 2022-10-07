@@ -1,5 +1,7 @@
 package com.sismics.docs.core.dao.dto;
 
+import java.util.Date;
+
 /**
  * Review DTO.
  *
@@ -9,41 +11,37 @@ public class ReviewDto {
      * Review ID.
      */
     private String id;
-    
+
     /**
-     * Creator name.
+     * Document ID.
      */
-    private String creatorName;
-    
+    private String documentId;
+
     /**
-     * Creator email.
+     * Creation date.
      */
-    private String creatorEmail;
+    private Date createDate;
     
     /**
      * Academic score.
      */
-    private String academic;
+    private int academic;
 
     /**
      * Extracurricular score.
      */
-    private String extracurricular;
+    private int extracurricular;
 
     /**
      * Athletic score.
      */
-    private String athletic;
+    private int athletic;
 
     /**
      * Personal score.
      */
-    private String personal;
+    private int personal;
     
-    /**
-     * Creation date of this comment.
-     */
-    private Long createTimestamp;
 
     public String getId() {
         return id;
@@ -53,59 +51,52 @@ public class ReviewDto {
         this.id = id;
     }
 
-    public String getCreatorName() {
-        return creatorName;
+    public String getDocumentId() {
+        return documentId;
     }
 
-    public void setCreatorName(String creatorName) {
-        this.creatorName = creatorName;
-    }
-    
-    public String getCreatorEmail() {
-        return creatorEmail;
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 
-    public void setCreatorEmail(String creatorEmail) {
-        this.creatorEmail = creatorEmail;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public String getAcademic() {
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public int getAcademic() {
         return academic;
     }
 
-    public void setAcademic(String academic) {
+    public void setAcademic(int academic) {
         this.academic = academic;
     }
 
-    public String getExtracurricular() {
+    public int getExtracurricular() {
         return extracurricular;
     }
 
-    public void setExtracurricular(String extracurricular) {
+    public void setExtracurricular(int extracurricular) {
         this.extracurricular = extracurricular;
     }
 
-    public String getAthletic() {
+    public int getAthletic() {
         return athletic;
     }
 
-    public void setAthletic(String athletic) {
+    public void setAthletic(int athletic) {
         this.athletic = athletic;
     }
 
-    public String getPersonal() {
+    public int getPersonal() {
         return personal;
     }
 
-    public void setPersonal(String personal) {
+    public void setPersonal(int personal) {
         this.personal = personal;
     }
 
-    public Long getCreateTimestamp() {
-        return createTimestamp;
-    }
-
-    public void setCreateTimestamp(Long createTimestamp) {
-        this.createTimestamp = createTimestamp;
-    }
 }

@@ -27,13 +27,12 @@ public class ReviewDao {
      * @param userId User ID
      * @return New ID
      */
-    public String create(Review review, String userId) {
-        // Create the UUID
-        review.setId(UUID.randomUUID().toString());
-        
+    public String create(Review review) {
         // Create the review
         EntityManager em = ThreadLocalContext.get().getEntityManager();
         review.setCreateDate(new Date());
+        System.out.println("dao:");
+        System.out.println(review);
         em.persist(review);
         
         // Create audit log
@@ -89,29 +88,35 @@ public class ReviewDao {
      */
     public List<ReviewDto> getByDocumentId(String documentId) {
         EntityManager em = ThreadLocalContext.get().getEntityManager();
-        StringBuilder sb = new StringBuilder("select c.COM_ID_C, c.COM_CONTENT_C, c.COM_CREATEDATE_D, u.USE_USERNAME_C, u.USE_EMAIL_C from T_REVIEW c, T_USER u");
-        sb.append(" where c.COM_IDDOC_C = :documentId and c.COM_IDUSER_C = u.USE_ID_C and c.COM_DELETEDATE_D is null ");
-        sb.append(" order by c.COM_CREATEDATE_D asc ");
+        StringBuilder sb = new StringBuilder("select c.REVIEWER_NAME, c.REVIEWED_DOCUMENT_ID, c.ACADEMIC_SCORE, c.EXTRACURRICULAR_SCORE, c.ATHLETICS_SCORE, c.PERSONAL_FIT_SCORE, c.DATE_CREATED from DOCUMENT_REVIEWS c");
+        sb.append(" order by c.DATE_CREATED asc ");
         Query q = em.createNativeQuery(sb.toString());
-        q.setParameter("documentId", documentId);
         @SuppressWarnings("unchecked")
         List<Object[]> l = q.getResultList();
         
         List<ReviewDto> reviewDtoList = new ArrayList<>();
         for (Object[] o : l) {
-            int i = 0;
             ReviewDto reviewDto = new ReviewDto();
-            reviewDto.setId((String) o[i++]);
-            reviewDto.setAcademic((String) o[i++]);
-            reviewDto.setExtracurricular((String) o[i++]);
-            reviewDto.setAthletic((String) o[i++]);
-            reviewDto.setPersonal((String) o[i++]);
-            reviewDto.setCreateTimestamp(((Timestamp) o[i++]).getTime());
-            reviewDto.setCreatorName((String) o[i++]);
-            reviewDto.setCreatorEmail((String) o[i]);
+            reviewDto.setId((String) o[0]);
+            reviewDto.setDocumentId((String) o[1]);
+            reviewDto.setAcademic((int) o[2]);
+            reviewDto.setExtracurricular((int) o[3]);
+            reviewDto.setAthletic((int) o[4]);
+            reviewDto.setPersonal((int) o[5]);
+            reviewDto.setCreateDate(((Date) o[6]));
             reviewDtoList.add(reviewDto);
         }
         return reviewDtoList;
     }
 }
 
+// // create cached table DOCUMENT_REVIEWS ( 
+// REVIEWER_NAME varchar(40) not null, 
+// REVIEWED_DOCUMENT_ID int not null, 
+// ACADEMIC_SCORE int not null constraint ONE_THROUGH_TEN check (ACADEMIC_SCORE between 0 and 11), 
+// EXTRACURRICULR_SCORE int not null constraint ONE_THROUGH_TEN check (EXTRACURRICULR_SCORE between 0 and 11),
+// ATHLETICS_SCORE int not null constraint ONE_THROUGH_TEN check (ATHLETICS_SCORE between 0 and 11), 
+// PERSONAL_FIT_SCORE int not null constraint ONE_THROUGH_TEN check (PERSONAL_FIT_SCORE between 0 and 11), 
+// DATE_CREATED datetime, primary key (REVIEWER_NAME) );
+// // alter table DOCUMENT_REVIEWS add constraint FK_REVIEWED_DOCUMENT_ID foreign key (REVIEWED_DOCUMENT_ID) references T_DOCUMENT (DOC_ID_C) on delete restrict on update restrict;
+// // update T_CONFIG set CFG_VALUE_C = '28' where CFG_ID_C = 'DB_VERSION';
