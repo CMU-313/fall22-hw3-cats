@@ -14,62 +14,51 @@ import com.google.common.base.MoreObjects;
  * 
  */
 @Entity
-@Table(name = "T_REVIEW")
+@Table(name = "DOCUMENT_REVIEWS")
 public class Review {
     /**
      * Review ID.
      */
     @Id
-    @Column(name = "COM_ID_C", length = 36)
+    @Column(name = "REVIEWER_NAME", length = 36)
     private String id;
     
     /**
      * Document ID.
      */
-    @Column(name = "COM_IDDOC_C", length = 36, nullable = false)
+    @Column(name = "REVIEWED_DOCUMENT_ID", length = 36, nullable = false)
     private String documentId;
-    
-    /**
-     * User ID.
-     */
-    @Column(name = "COM_IDUSER_C", length = 36, nullable = false)
-    private String userId;
-    
+
     /**
      * Academic Score.
      */
-    @Column(name = "COM_ACADEMIC_C", nullable = false)
-    private String academic;
+    @Column(name = "ACADEMIC_SCORE", nullable = false)
+    private int academic;
 
     /**
      * Extracurricular Score.
      */
-    @Column(name = "COM_EXTRACURRICULAR_C", nullable = false)
-    private String extracurricular;
+    @Column(name = "EXTRACURRICULAR_SCORE", nullable = false)
+    private int extracurricular;
 
     /**
      * Academic Score.
      */
-    @Column(name = "COM_ATHLETIC_C", nullable = false)
-    private String athletic;
+    @Column(name = "ATHLETICS_SCORE", nullable = false)
+    private int athletic;
 
     /**
      * Academic Score.
      */
-    @Column(name = "COM_PERSONAL_C", nullable = false)
-    private String personal;
+    @Column(name = "PERSONAL_FIT_SCORE", nullable = false)
+    private int personal;
     
     /**
      * Creation date.
      */
-    @Column(name = "COM_CREATEDATE_D", nullable = false)
+    @Column(name = "DATE_CREATED", nullable = false)
     private Date createDate;
 
-    /**
-     * Deletion date.
-     */
-    @Column(name = "COM_DELETEDATE_D")
-    private Date deleteDate;
     
     public String getId() {
         return id;
@@ -95,52 +84,49 @@ public class Review {
         this.createDate = createDate;
     }
     
-    public String getAcademic() {
+    public int getAcademic() {
         return academic;
     }
 
-    public void setAcademic(String academic) {
+    public void setAcademic(int academic) {
         this.academic = academic;
     }
 
-    public String getExtracurricular() {
+    public int getExtracurricular() {
         return extracurricular;
     }
 
-    public void setExtracurricular(String extracurricular) {
+    public void setExtracurricular(int extracurricular) {
         this.extracurricular = extracurricular;
     }
 
-    public String getAthletic() {
+    public int getAthletic() {
         return athletic;
     }
 
-    public void setAthletic(String athletic) {
-        this.academic = athletic;
+    public void setAthletic(int athletic) {
+        this.athletic = athletic;
     }
 
-    public String getPersonal() {
+    public int getPersonal() {
         return personal;
     }
 
-    public void setPersonal(String personal) {
+    public void setPersonal(int personal) {
         this.personal = personal;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("id", id)
                 .add("documentId", documentId)
-                .add("userId", userId)
+                .add("academic", academic)
+                .add("extracurricular", extracurricular)
+                .add("athletic", athletic)
+                .add("personal", personal)
+                .add("date", createDate)
                 .toString();
     }
 }
