@@ -71,7 +71,6 @@ public class ReviewResource extends BaseResource {
             throw new NotFoundException();
         }
         String[] arr = {documentId, academic, extracurricular, athletic, personal};
-        System.out.println(Arrays.toString(arr));
         // Create the review
         Review review = new Review();
         review.setDocumentId(documentId);
@@ -80,7 +79,6 @@ public class ReviewResource extends BaseResource {
         review.setAthletic(Integer.parseInt(athletic));
         review.setPersonal(Integer.parseInt(personal));
         review.setId(principal.getName());
-        System.out.println(review);
         ReviewDao reviewDao = new ReviewDao();
         reviewDao.create(review);
         // Returns the review
