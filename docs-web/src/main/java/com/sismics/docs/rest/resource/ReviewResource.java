@@ -7,13 +7,15 @@ import com.sismics.docs.core.dao.dto.ReviewDto;
 import com.sismics.docs.core.model.jpa.Review; 
 import com.sismics.rest.exception.ForbiddenClientException;
 import com.sismics.rest.util.ValidationUtil;
-import com.sismics.util.ImageUtil;
+
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -49,38 +51,38 @@ public class ReviewResource extends BaseResource {
      * @param personal Review personal score
      * @return Response
      */
-    @PUT
+    @POST
     public Response add(@FormParam("id") String documentId,
             @FormParam("academic") String academic, @FormParam("extracurricular") String extracurricular,
             @FormParam("athletic") String athletic, @FormParam("personal") String personal) {
         if (!authenticate()) {
             throw new ForbiddenClientException();
         }
-        
         // Validate input data
         ValidationUtil.validateRequired(documentId, "id");
-        academic = ValidationUtil.validateLength(academic, "academic", 1, 3, false);
-        academic = ValidationUtil.validateLength(extracurricular, "extracurricular", 1, 3, false);
-        academic = ValidationUtil.validateLength(athletic, "athletic", 1, 3, false);
-        academic = ValidationUtil.validateLength(personal, "personal", 1, 3, false);
+        ValidationUtil.validateLength(academic, "academic", 1, 3, false);
+        ValidationUtil.validateLength(extracurricular, "extracurricular", 1, 3, false);
+        ValidationUtil.validateLength(athletic, "athletic", 1, 3, false);
+        ValidationUtil.validateLength(personal, "personal", 1, 3, false);
         
         // Read access on doc gives access to write a review 
         AclDao aclDao = new AclDao();
         if (!aclDao.checkPermission(documentId, PermType.READ, getTargetIdList(null))) {
             throw new NotFoundException();
         }
-        
+        String[] arr = {documentId, academic, extracurricular, athletic, personal};
+        System.out.println(Arrays.toString(arr));
         // Create the review
         Review review = new Review();
         review.setDocumentId(documentId);
-        review.setAcademic(academic);
-        review.setExtracurricular(extracurricular);
-        review.setAthletic(athletic);
-        review.setPersonal(personal);
-        review.setUserId(principal.getId());
+        review.setAcademic(Integer.parseInt(academic));
+        review.setExtracurricular(Integer.parseInt(extracurricular));
+        review.setAthletic(Integer.parseInt(athletic));
+        review.setPersonal(Integer.parseInt(personal));
+        review.setId(principal.getName());
+        System.out.println(review);
         ReviewDao reviewDao = new ReviewDao();
-        reviewDao.create(review, principal.getId());
-        
+        reviewDao.create(review);
         // Returns the review
         JsonObjectBuilder response = Json.createObjectBuilder()
                 .add("id", review.getId())
@@ -89,7 +91,6 @@ public class ReviewResource extends BaseResource {
                 .add("athletic_score", review.getAthletic())
                 .add("personal_score", review.getPersonal())
                 .add("creator", principal.getName())
-                .add("creator_gravatar", ImageUtil.computeGravatar(principal.getEmail()))
                 .add("create_date", review.getCreateDate().getTime());
         return Response.ok().entity(response.build()).build();
     }
@@ -122,15 +123,6 @@ public class ReviewResource extends BaseResource {
         Review review = reviewDao.getActiveById(id);
         if (review == null) {
             throw new NotFoundException();
-        }
-        
-        // If the current user owns the review, skip ACL check
-        if (!review.getUserId().equals(principal.getId())) {
-            // Get the associated document
-            AclDao aclDao = new AclDao();
-            if (!aclDao.checkPermission(review.getDocumentId(), PermType.WRITE, getTargetIdList(null))) {
-                throw new NotFoundException();
-            }
         }
         
         // Delete the review
@@ -168,14 +160,9 @@ public class ReviewResource extends BaseResource {
      */
     @GET
     @Path("{documentId: [a-z0-9\\-]+}")
-    public Response get(@PathParam("documentId") String documentId,
-            @QueryParam("share") String shareId) {
-        authenticate();
-        
-        // Read access on doc gives access to read reviews 
-        AclDao aclDao = new AclDao();
-        if (!aclDao.checkPermission(documentId, PermType.READ, getTargetIdList(shareId))) {
-            throw new NotFoundException();
+    public Response get(@PathParam("documentId") String documentId) {
+        if (!authenticate()) {
+            throw new ForbiddenClientException();
         }
         
         // Assemble results
@@ -189,9 +176,7 @@ public class ReviewResource extends BaseResource {
                     .add("extracurricular_score", reviewDto.getExtracurricular())
                     .add("athletic_score", reviewDto.getAthletic())
                     .add("personal_score", reviewDto.getPersonal())
-                    .add("creator", reviewDto.getCreatorName())
-                    .add("creator_gravatar", ImageUtil.computeGravatar(reviewDto.getCreatorEmail()))
-                    .add("create_date", reviewDto.getCreateTimestamp()));
+                    .add("created_date", reviewDto.getCreateDate().toString()));
         }
         
         // Always return OK
