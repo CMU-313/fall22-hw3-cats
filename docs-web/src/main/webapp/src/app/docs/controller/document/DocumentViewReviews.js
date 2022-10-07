@@ -5,14 +5,12 @@
  */
 angular.module('docs').controller('DocumentViewReviews', function($scope, $stateParams, Restangular) {
   Restangular.one('review', $stateParams.id).get().then(function(data) {
-    console.log(data)
     $scope.reviews = data.reviews;
   });
 
   $scope.addReview = function () {
     const review = $scope.newReview
     review.id = $scope.document.id
-    const putThis = Restangular.one('review')
     Restangular.all('review').post("", review);
   }
 });
