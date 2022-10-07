@@ -134,7 +134,13 @@
       }, 
       "reviews": {
         "reviews": "評論",
-        "message": ""
+        "message": "此處顯示該學生已完成的評論。",
+        "title": "對該學生的評價",
+        "category-reviewer": "審閱者 ID",
+        "category-academic": "學術",
+        "category-extracurr": "課外活動",
+        "category-athletic": "體育",
+        "category-personal": "個人"
       }
     },
     "edit": {

@@ -134,7 +134,13 @@
       }, 
       "reviews": {
         "reviews": "评论",
-        "message": ""
+        "message": "此处显示该学生已完成的评论。",
+        "title": "对该学生的评价",
+        "category-reviewer": "审阅者 ID",
+        "category-academic": "学术",
+        "category-extracurr": "课外活动",
+        "category-athletic": "体育",
+        "category-personal": "个人"
       }
     },
     "edit": {

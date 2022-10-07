@@ -151,7 +151,13 @@
       }, 
       "reviews": {
         "reviews": "Reseñas",
-        "message": ""
+        "message": "Las revisiones completadas para este estudiante se muestran aquí.",
+        "title": "Reseñas para este estudiante",
+        "category-reviewer": "Identificación del revisor",
+        "category-academic": "Académico",
+        "category-extracurr": "Extra curricular",
+        "category-athletic": "Atlético",
+        "category-personal": "Personal"
       }
     },
     "edit": {

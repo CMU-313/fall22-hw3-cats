@@ -151,7 +151,13 @@
       }, 
       "reviews": {
         "reviews": "Κριτικές",
-        "message": ""
+        "message": "Οι ολοκληρωμένες κριτικές για αυτόν τον μαθητή εμφανίζονται εδώ.",
+        "title": "Κριτικές για αυτόν τον μαθητή",
+        "category-reviewer": "Αναγνωριστικό αναθεωρητή",
+        "category-academic": "Ακαδημαϊκός",
+        "category-extracurr": "Εξωσχολικό",
+        "category-athletic": "Αθλητικός",
+        "category-personal": "Προσωπικός"
       }
     },
     "edit": {

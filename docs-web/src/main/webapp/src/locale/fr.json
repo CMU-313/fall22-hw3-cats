@@ -151,7 +151,13 @@
       },
       "reviews": {
         "reviews": "Commentaires",
-        "message": ""
+        "message": "Les évaluations terminées pour cet étudiant sont affichées ici.",
+        "title": "Avis pour cet étudiant",
+        "category-reviewer": "ID de l'examinateur",
+        "category-academic": "Académique",
+        "category-extracurr": "Périscolaire",
+        "category-athletic": "Athlétique",
+        "category-personal": "Personnel"
       }
     },
     "edit": {

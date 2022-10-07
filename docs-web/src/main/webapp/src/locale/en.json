@@ -151,7 +151,13 @@
       },
       "reviews": {
         "reviews": "Reviews",
-        "message": "All completed reviews for this student are displayed here."
+        "message": "Completed reviews for this student are displayed here.",
+        "title": "Reviews for this Student",
+        "category-reviewer": "Reviewer ID",
+        "category-academic": "Academic",
+        "category-extracurr": "Extracurricular",
+        "category-athletic": "Athletic",
+        "category-personal": "Personal"
       }
     },
     "edit": {

@@ -32,6 +32,7 @@ Teedy is an open source, lightweight document management system for individuals 
 - Hierarchical groups
 - Audit log
 - Comments
+- Document Review system
 - Storage quota per user
 - Document sharing by URL
 - RESTful Web API
